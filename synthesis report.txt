@@ -1,0 +1,813 @@
+Release 14.7 - xst P.20131013 (nt64)
+Copyright (c) 1995-2013 Xilinx, Inc.  All rights reserved.
+--> Parameter TMPDIR set to xst/projnav.tmp
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.16 secs
+ 
+--> Parameter xsthdpdir set to xst
+
+
+Total REAL time to Xst completion: 0.00 secs
+Total CPU time to Xst completion: 0.17 secs
+ 
+--> Reading design: cpu.prj
+
+TABLE OF CONTENTS
+  1) Synthesis Options Summary
+  2) HDL Compilation
+  3) Design Hierarchy Analysis
+  4) HDL Analysis
+  5) HDL Synthesis
+     5.1) HDL Synthesis Report
+  6) Advanced HDL Synthesis
+     6.1) Advanced HDL Synthesis Report
+  7) Low Level Synthesis
+  8) Partition Report
+  9) Final Report
+	9.1) Device utilization summary
+	9.2) Partition Resource Summary
+	9.3) TIMING REPORT
+
+
+=========================================================================
+*                      Synthesis Options Summary                        *
+=========================================================================
+---- Source Parameters
+Input File Name                    : "cpu.prj"
+Input Format                       : mixed
+Ignore Synthesis Constraint File   : NO
+
+---- Target Parameters
+Output File Name                   : "cpu"
+Output Format                      : NGC
+Target Device                      : xa3s1500-4-fgg456
+
+---- Source Options
+Top Module Name                    : cpu
+Automatic FSM Extraction           : YES
+FSM Encoding Algorithm             : Auto
+Safe Implementation                : No
+FSM Style                          : LUT
+RAM Extraction                     : Yes
+RAM Style                          : Auto
+ROM Extraction                     : Yes
+Mux Style                          : Auto
+Decoder Extraction                 : YES
+Priority Encoder Extraction        : Yes
+Shift Register Extraction          : YES
+Logical Shifter Extraction         : YES
+XOR Collapsing                     : YES
+ROM Style                          : Auto
+Mux Extraction                     : Yes
+Resource Sharing                   : YES
+Asynchronous To Synchronous        : NO
+Multiplier Style                   : Auto
+Automatic Register Balancing       : No
+
+---- Target Options
+Add IO Buffers                     : YES
+Global Maximum Fanout              : 500
+Add Generic Clock Buffer(BUFG)     : 8
+Register Duplication               : YES
+Slice Packing                      : YES
+Optimize Instantiated Primitives   : NO
+Use Clock Enable                   : Yes
+Use Synchronous Set                : Yes
+Use Synchronous Reset              : Yes
+Pack IO Registers into IOBs        : Auto
+Equivalent register Removal        : YES
+
+---- General Options
+Optimization Goal                  : Speed
+Optimization Effort                : 1
+Keep Hierarchy                     : No
+Netlist Hierarchy                  : As_Optimized
+RTL Output                         : Yes
+Global Optimization                : AllClockNets
+Read Cores                         : YES
+Write Timing Constraints           : NO
+Cross Clock Analysis               : NO
+Hierarchy Separator                : /
+Bus Delimiter                      : <>
+Case Specifier                     : Maintain
+Slice Utilization Ratio            : 100
+BRAM Utilization Ratio             : 100
+Verilog 2001                       : YES
+Auto BRAM Packing                  : NO
+Slice Utilization Ratio Delta      : 5
+
+=========================================================================
+
+
+=========================================================================
+*                          HDL Compilation                              *
+=========================================================================
+Compiling verilog file "../../Users/User/Desktop/ayaaaa.v" in library work
+Module <IFID> compiled
+Module <IDEX> compiled
+Module <EXMEM> compiled
+Module <MEMWB> compiled
+Module <controlunit> compiled
+Module <HAzard_Detection> compiled
+Module <PC> compiled
+Module <inst_memory> compiled
+Module <Regfile> compiled
+Module <Alu> compiled
+Module <alucontrol> compiled
+Module <Data_Mem> compiled
+Module <Forward_unit> compiled
+Module <signextend> compiled
+Module <shift> compiled
+Module <aluplus> compiled
+Module <mux> compiled
+Module <mux3_1> compiled
+Module <mux3_1_2> compiled
+Module <andd> compiled
+Module <comparator> compiled
+Module <muxx> compiled
+Module <mux_hazard> compiled
+Module <cpu> compiled
+No errors in compilation
+Analysis of file <"cpu.prj"> succeeded.
+ 
+
+=========================================================================
+*                     Design Hierarchy Analysis                         *
+=========================================================================
+Analyzing hierarchy for module <cpu> in library <work>.
+
+Analyzing hierarchy for module <IFID> in library <work>.
+
+Analyzing hierarchy for module <IDEX> in library <work>.
+
+Analyzing hierarchy for module <EXMEM> in library <work>.
+
+Analyzing hierarchy for module <MEMWB> in library <work>.
+
+Analyzing hierarchy for module <mux3_1_2> in library <work>.
+
+Analyzing hierarchy for module <PC> in library <work>.
+
+Analyzing hierarchy for module <inst_memory> in library <work>.
+
+Analyzing hierarchy for module <Regfile> in library <work>.
+
+Analyzing hierarchy for module <Alu> in library <work>.
+
+Analyzing hierarchy for module <Data_Mem> in library <work>.
+
+Analyzing hierarchy for module <controlunit> in library <work>.
+
+Analyzing hierarchy for module <alucontrol> in library <work>.
+
+Analyzing hierarchy for module <signextend> in library <work>.
+
+Analyzing hierarchy for module <shift> in library <work>.
+
+Analyzing hierarchy for module <aluplus> in library <work>.
+
+Analyzing hierarchy for module <mux_hazard> in library <work>.
+
+Analyzing hierarchy for module <muxx> in library <work>.
+
+Analyzing hierarchy for module <mux> in library <work>.
+
+Analyzing hierarchy for module <Forward_unit> in library <work>.
+
+Analyzing hierarchy for module <HAzard_Detection> in library <work>.
+
+Analyzing hierarchy for module <mux3_1> in library <work>.
+
+Analyzing hierarchy for module <andd> in library <work>.
+
+
+=========================================================================
+*                            HDL Analysis                               *
+=========================================================================
+Analyzing top module <cpu>.
+WARNING:Xst:863 - "../../Users/User/Desktop/ayaaaa.v" line 781: Name conflict (<out_sign> and <OUT_SIGN>, renaming out_sign as out_sign_rnm0).
+WARNING:Xst:916 - "../../Users/User/Desktop/ayaaaa.v" line 870: Delay is ignored for synthesis.
+Module <cpu> is correct for synthesis.
+ 
+Analyzing module <IFID> in library <work>.
+Module <IFID> is correct for synthesis.
+ 
+Analyzing module <IDEX> in library <work>.
+Module <IDEX> is correct for synthesis.
+ 
+Analyzing module <EXMEM> in library <work>.
+Module <EXMEM> is correct for synthesis.
+ 
+Analyzing module <MEMWB> in library <work>.
+Module <MEMWB> is correct for synthesis.
+ 
+Analyzing module <mux3_1_2> in library <work>.
+Module <mux3_1_2> is correct for synthesis.
+ 
+Analyzing module <PC> in library <work>.
+Module <PC> is correct for synthesis.
+ 
+Analyzing module <inst_memory> in library <work>.
+INFO:Xst:2546 - "../../Users/User/Desktop/ayaaaa.v" line 276: reading initialization file "verilog1.txt".
+WARNING:Xst:2319 - "../../Users/User/Desktop/ayaaaa.v" line 276: Signal memory in initial block is partially initialized. The initialization will be ignored.
+INFO:Xst:1607 - Contents of array <memory> may be accessed with an index that does not cover the full array size.
+WARNING:Xst:905 - "../../Users/User/Desktop/ayaaaa.v" line 271: One or more signals are missing in the sensitivity list of always block. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+   <memory>
+Module <inst_memory> is correct for synthesis.
+ 
+Analyzing module <Regfile> in library <work>.
+WARNING:Xst:2319 - "../../Users/User/Desktop/ayaaaa.v" line 292: Signal Rdata in initial block is partially initialized. The initialization will be ignored.
+Module <Regfile> is correct for synthesis.
+ 
+Analyzing module <Alu> in library <work>.
+Module <Alu> is correct for synthesis.
+ 
+Analyzing module <Data_Mem> in library <work>.
+INFO:Xst:1607 - Contents of array <Data_arr> may be accessed with an index that does not cover the full array size.
+Module <Data_Mem> is correct for synthesis.
+ 
+Analyzing module <controlunit> in library <work>.
+WARNING:Xst:916 - "../../Users/User/Desktop/ayaaaa.v" line 136: Delay is ignored for synthesis.
+WARNING:Xst:905 - "../../Users/User/Desktop/ayaaaa.v" line 111: One or more signals are missing in the sensitivity list of always block. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+   <RegDst>, <AluSrc>, <Branch>, <MemtoReg>, <MemRead>, <MEmwrite>, <RegWrite>, <AluOP>
+Module <controlunit> is correct for synthesis.
+ 
+Analyzing module <alucontrol> in library <work>.
+Module <alucontrol> is correct for synthesis.
+ 
+Analyzing module <signextend> in library <work>.
+Module <signextend> is correct for synthesis.
+ 
+Analyzing module <shift> in library <work>.
+Module <shift> is correct for synthesis.
+ 
+Analyzing module <aluplus> in library <work>.
+Module <aluplus> is correct for synthesis.
+ 
+Analyzing module <mux_hazard> in library <work>.
+Module <mux_hazard> is correct for synthesis.
+ 
+Analyzing module <muxx> in library <work>.
+Module <muxx> is correct for synthesis.
+ 
+Analyzing module <mux> in library <work>.
+Module <mux> is correct for synthesis.
+ 
+Analyzing module <Forward_unit> in library <work>.
+WARNING:Xst:905 - "../../Users/User/Desktop/ayaaaa.v" line 455: One or more signals are missing in the sensitivity list of always block. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+   <EXMEM_RD>, <MEMWB_RD>, <flagA>, <flagB>
+Module <Forward_unit> is correct for synthesis.
+ 
+Analyzing module <HAzard_Detection> in library <work>.
+WARNING:Xst:905 - "../../Users/User/Desktop/ayaaaa.v" line 187: One or more signals are missing in the sensitivity list of always block. To enable synthesis of FPGA/CPLD hardware, XST will assume that all necessary signals are present in the sensitivity list. Please note that the result of the synthesis may differ from the initial design specification. The missing signals are:
+   <IDEXRT>
+Module <HAzard_Detection> is correct for synthesis.
+ 
+Analyzing module <mux3_1> in library <work>.
+Module <mux3_1> is correct for synthesis.
+ 
+Analyzing module <andd> in library <work>.
+Module <andd> is correct for synthesis.
+ 
+
+=========================================================================
+*                           HDL Synthesis                               *
+=========================================================================
+
+Performing bidirectional port resolution...
+
+Synthesizing Unit <IFID>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit register for signal <IR>.
+    Found 32-bit register for signal <PC>.
+    Found 32-bit subtractor for signal <PC$addsub0000> created at line 12.
+    Summary:
+	inferred  64 D-type flip-flop(s).
+	inferred   1 Adder/Subtractor(s).
+Unit <IFID> synthesized.
+
+
+Synthesizing Unit <IDEX>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit register for signal <IR>.
+    Found 32-bit register for signal <SIGN>.
+    Found 5-bit register for signal <RD>.
+    Found 5-bit register for signal <RT>.
+    Found 32-bit register for signal <RD1>.
+    Found 32-bit register for signal <RD2>.
+    Found 9-bit register for signal <SIGNALS>.
+    Summary:
+	inferred 147 D-type flip-flop(s).
+Unit <IDEX> synthesized.
+
+
+Synthesizing Unit <EXMEM>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 1-bit register for signal <MEMR>.
+    Found 1-bit register for signal <MEMW>.
+    Found 32-bit register for signal <IR>.
+    Found 1-bit register for signal <REGW>.
+    Found 32-bit register for signal <RESULT>.
+    Found 5-bit register for signal <RD>.
+    Found 32-bit register for signal <RD2>.
+    Found 1-bit register for signal <MEMTOREG>.
+    Summary:
+	inferred 105 D-type flip-flop(s).
+Unit <EXMEM> synthesized.
+
+
+Synthesizing Unit <MEMWB>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit register for signal <IR>.
+    Found 1-bit register for signal <REGW>.
+    Found 32-bit register for signal <RESULT>.
+    Found 5-bit register for signal <RD>.
+    Found 32-bit register for signal <READDATA>.
+    Found 1-bit register for signal <MEMTOREG>.
+    Summary:
+	inferred 103 D-type flip-flop(s).
+Unit <MEMWB> synthesized.
+
+
+Synthesizing Unit <mux3_1_2>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+Unit <mux3_1_2> synthesized.
+
+
+Synthesizing Unit <PC>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit register for signal <out>.
+    Summary:
+	inferred  32 D-type flip-flop(s).
+Unit <PC> synthesized.
+
+
+Synthesizing Unit <inst_memory>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+WARNING:Xst:647 - Input <address<1:0>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:1780 - Signal <rt> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:1780 - Signal <rs> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:1780 - Signal <rd> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+WARNING:Xst:653 - Signal <memory> is used but never assigned. This sourceless signal will be automatically connected to value 00000000000000000000000000000000.
+WARNING:Xst:1780 - Signal <immed> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+Unit <inst_memory> synthesized.
+
+
+Synthesizing Unit <Regfile>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 1024-bit register for signal <Rdata>.
+INFO:Xst:738 - HDL ADVISOR - 1024 flip-flops were inferred for signal <Rdata>. You may be trying to describe a RAM in a way that is incompatible with block and distributed RAM resources available on Xilinx devices, or with a specific template that is not supported. Please review the Xilinx resources documentation and the XST user manual for coding guidelines. Taking advantage of RAM resources will lead to improved device usage and reduced synthesis time.
+    Summary:
+	inferred 1024 D-type flip-flop(s).
+	inferred  64 Multiplexer(s).
+Unit <Regfile> synthesized.
+
+
+Synthesizing Unit <Alu>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit tristate buffer for signal <result>.
+    Found 32-bit addsub for signal <result$share0000>.
+    Found 32-bit shifter logical left for signal <result$shift0000> created at line 358.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+	inferred   1 Combinational logic shifter(s).
+	inferred  32 Tristate(s).
+Unit <Alu> synthesized.
+
+
+Synthesizing Unit <Data_Mem>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+WARNING:Xst:647 - Input <addr<31:5>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+    Found 1024-bit register for signal <Data_arr>.
+INFO:Xst:738 - HDL ADVISOR - 1024 flip-flops were inferred for signal <Data_arr>. You may be trying to describe a RAM in a way that is incompatible with block and distributed RAM resources available on Xilinx devices, or with a specific template that is not supported. Please review the Xilinx resources documentation and the XST user manual for coding guidelines. Taking advantage of RAM resources will lead to improved device usage and reduced synthesis time.
+    Summary:
+	inferred 1024 D-type flip-flop(s).
+	inferred  32 Multiplexer(s).
+Unit <Data_Mem> synthesized.
+
+
+Synthesizing Unit <controlunit>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+
+
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_AluSrc_7>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_Branch_8>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_MemtoReg_9>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_MemRead_10>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_MEmwrite_11>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 1-bit latch for signal <$old_RegWrite_12>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+WARNING:Xst:737 - Found 2-bit latch for signal <$old_AluOP_13>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+INFO:Xst:2371 - HDL ADVISOR - Logic functions respectively driving the data and gate enable inputs of this latch share common terms. This situation will potentially lead to setup/hold violations and, as a result, to simulation problems. This situation may come from an incomplete case statement (all selector values are not covered). You should carefully review if it was in your intentions to describe such a latch.
+Unit <controlunit> synthesized.
+
+
+Synthesizing Unit <alucontrol>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 4-bit tristate buffer for signal <cout>.
+    Summary:
+	inferred   4 Tristate(s).
+Unit <alucontrol> synthesized.
+
+
+Synthesizing Unit <signextend>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+Unit <signextend> synthesized.
+
+
+Synthesizing Unit <shift>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+WARNING:Xst:647 - Input <in<31:30>> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+Unit <shift> synthesized.
+
+
+Synthesizing Unit <aluplus>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 32-bit adder for signal <out>.
+    Summary:
+	inferred   1 Adder/Subtractor(s).
+Unit <aluplus> synthesized.
+
+
+Synthesizing Unit <mux_hazard>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+WARNING:Xst:1780 - Signal <zero> is never used or assigned. This unconnected signal will be trimmed during the optimization process.
+Unit <mux_hazard> synthesized.
+
+
+Synthesizing Unit <muxx>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+Unit <muxx> synthesized.
+
+
+Synthesizing Unit <mux>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+Unit <mux> synthesized.
+
+
+Synthesizing Unit <Forward_unit>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+WARNING:Xst:647 - Input <stall> is never used. This port will be preserved and left unconnected if it belongs to a top-level block or it belongs to a sub-block and the hierarchy of this sub-block is preserved.
+WARNING:Xst:737 - Found 2-bit latch for signal <forwardA>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+WARNING:Xst:737 - Found 2-bit latch for signal <forwardB>. Latches may be generated from incomplete case or if statements. We do not recommend the use of latches in FPGA/CPLD designs, as they may lead to timing problems.
+    Found 5-bit comparator equal for signal <old_flagA_14$cmp_eq0000> created at line 493.
+    Found 5-bit comparator equal for signal <old_flagA_14$cmp_eq0001> created at line 493.
+    Found 5-bit comparator equal for signal <old_flagA_14$cmp_eq0002> created at line 471.
+    Found 5-bit comparator equal for signal <old_flagA_14$cmp_eq0003> created at line 471.
+    Found 5-bit comparator not equal for signal <old_flagA_14$cmp_ne0001> created at line 493.
+    Found 5-bit comparator not equal for signal <old_flagA_14$cmp_ne0002> created at line 481.
+    Found 5-bit comparator not equal for signal <old_flagA_14$cmp_ne0004> created at line 456.
+    Found 5-bit comparator not equal for signal <old_flagB_15$cmp_ne0000> created at line 487.
+    Summary:
+	inferred   8 Comparator(s).
+Unit <Forward_unit> synthesized.
+
+
+Synthesizing Unit <HAzard_Detection>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 5-bit comparator equal for signal <stall$cmp_eq0000> created at line 188.
+    Found 5-bit comparator equal for signal <stall$cmp_eq0001> created at line 188.
+    Summary:
+	inferred   2 Comparator(s).
+Unit <HAzard_Detection> synthesized.
+
+
+Synthesizing Unit <mux3_1>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+    Found 31-bit 3-to-1 multiplexer for signal <out<31:1>>.
+    Found 31-bit 3-to-1 multiplexer for signal <out<0>>.
+    Summary:
+	inferred  32 Multiplexer(s).
+Unit <mux3_1> synthesized.
+
+
+Synthesizing Unit <andd>.
+    Related source file is "../../Users/User/Desktop/ayaaaa.v".
+Unit <andd> synthesized.
+
+
+Synthesizing Unit <cpu>.
+ 
+Unit <cpu> synthesized.
+
+INFO:Xst:1767 - HDL ADVISOR - Resource sharing has identified that some arithmetic operations in this design can share the same physical resources for reduced device utilization. For improved clock frequency you may try to disable resource sharing.
+WARNING:Xst:524 - All outputs of the instance <reg_des> of the block <muxx> are unconnected in block <cpu>.
+   This instance will be removed from the design along with all underlying logic
+
+=========================================================================
+HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 4
+ 32-bit adder                                          : 2
+ 32-bit addsub                                         : 1
+ 32-bit subtractor                                     : 1
+# Registers                                            : 88
+ 1-bit register                                        : 6
+ 32-bit register                                       : 77
+ 5-bit register                                        : 4
+ 9-bit register                                        : 1
+# Latches                                              : 10
+ 1-bit latch                                           : 7
+ 2-bit latch                                           : 3
+# Comparators                                          : 10
+ 5-bit comparator equal                                : 6
+ 5-bit comparator not equal                            : 4
+# Multiplexers                                         : 67
+ 1-bit 3-to-1 multiplexer                              : 2
+ 1-bit 4-to-1 multiplexer                              : 62
+ 32-bit 32-to-1 multiplexer                            : 3
+# Logic shifters                                       : 1
+ 32-bit shifter logical left                           : 1
+# Tristates                                            : 2
+ 32-bit tristate buffer                                : 1
+ 4-bit tristate buffer                                 : 1
+
+=========================================================================
+
+=========================================================================
+*                       Advanced HDL Synthesis                          *
+=========================================================================
+
+
+
+=========================================================================
+Advanced HDL Synthesis Report
+
+Macro Statistics
+# Adders/Subtractors                                   : 4
+ 32-bit adder                                          : 2
+ 32-bit addsub                                         : 1
+ 32-bit subtractor                                     : 1
+# Registers                                            : 2499
+ Flip-Flops                                            : 2499
+# Latches                                              : 10
+ 1-bit latch                                           : 7
+ 2-bit latch                                           : 3
+# Comparators                                          : 10
+ 5-bit comparator equal                                : 6
+ 5-bit comparator not equal                            : 4
+# Multiplexers                                         : 129
+ 1-bit 3-to-1 multiplexer                              : 2
+ 1-bit 32-to-1 multiplexer                             : 64
+ 1-bit 4-to-1 multiplexer                              : 62
+ 32-bit 32-to-1 multiplexer                            : 1
+# Logic shifters                                       : 1
+ 32-bit shifter logical left                           : 1
+
+=========================================================================
+
+=========================================================================
+*                         Low Level Synthesis                           *
+=========================================================================
+INFO:Xst:2261 - The FF/Latch <R1/IR_0> in Unit <cpu> is equivalent to the following 31 FFs/Latches, which will be removed : <R1/IR_1> <R1/IR_2> <R1/IR_3> <R1/IR_4> <R1/IR_5> <R1/IR_6> <R1/IR_7> <R1/IR_8> <R1/IR_9> <R1/IR_10> <R1/IR_11> <R1/IR_12> <R1/IR_13> <R1/IR_14> <R1/IR_15> <R1/IR_16> <R1/IR_17> <R1/IR_18> <R1/IR_19> <R1/IR_20> <R1/IR_21> <R1/IR_22> <R1/IR_23> <R1/IR_24> <R1/IR_25> <R1/IR_26> <R1/IR_27> <R1/IR_28> <R1/IR_29> <R1/IR_30> <R1/IR_31> 
+INFO:Xst:2261 - The FF/Latch <IR_0> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_0> 
+INFO:Xst:2261 - The FF/Latch <IR_1> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_1> 
+INFO:Xst:2261 - The FF/Latch <IR_2> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_2> 
+INFO:Xst:2261 - The FF/Latch <IR_3> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_3> 
+INFO:Xst:2261 - The FF/Latch <IR_4> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_4> 
+INFO:Xst:2261 - The FF/Latch <IR_5> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_5> 
+INFO:Xst:2261 - The FF/Latch <IR_6> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_6> 
+INFO:Xst:2261 - The FF/Latch <IR_10> in Unit <IDEX> is equivalent to the following 2 FFs/Latches, which will be removed : <SIGN_10> <RD_0> 
+INFO:Xst:2261 - The FF/Latch <IR_7> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_7> 
+INFO:Xst:2261 - The FF/Latch <IR_11> in Unit <IDEX> is equivalent to the following 2 FFs/Latches, which will be removed : <SIGN_11> <RD_1> 
+INFO:Xst:2261 - The FF/Latch <IR_8> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_8> 
+INFO:Xst:2261 - The FF/Latch <IR_12> in Unit <IDEX> is equivalent to the following 2 FFs/Latches, which will be removed : <SIGN_12> <RD_2> 
+INFO:Xst:2261 - The FF/Latch <IR_9> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <SIGN_9> 
+INFO:Xst:2261 - The FF/Latch <IR_13> in Unit <IDEX> is equivalent to the following 2 FFs/Latches, which will be removed : <SIGN_13> <RD_3> 
+INFO:Xst:2261 - The FF/Latch <IR_14> in Unit <IDEX> is equivalent to the following 2 FFs/Latches, which will be removed : <SIGN_14> <RD_4> 
+INFO:Xst:2261 - The FF/Latch <IR_15> in Unit <IDEX> is equivalent to the following 17 FFs/Latches, which will be removed : <SIGN_15> <SIGN_16> <SIGN_17> <SIGN_18> <SIGN_19> <SIGN_20> <SIGN_21> <SIGN_22> <SIGN_23> <SIGN_24> <SIGN_25> <SIGN_26> <SIGN_27> <SIGN_28> <SIGN_29> <SIGN_30> <SIGN_31> 
+INFO:Xst:2261 - The FF/Latch <IR_20> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <RT_4> 
+INFO:Xst:2261 - The FF/Latch <IR_16> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <RT_0> 
+INFO:Xst:2261 - The FF/Latch <IR_17> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <RT_1> 
+INFO:Xst:2261 - The FF/Latch <IR_18> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <RT_2> 
+INFO:Xst:2261 - The FF/Latch <IR_19> in Unit <IDEX> is equivalent to the following FF/Latch, which will be removed : <RT_3> 
+INFO:Xst:2261 - The FF/Latch <RD_1> in Unit <EXMEM> is equivalent to the following 3 FFs/Latches, which will be removed : <RD_2> <RD_3> <RD_4> 
+INFO:Xst:2261 - The FF/Latch <_old_Branch_8> in Unit <controlunit> is equivalent to the following FF/Latch, which will be removed : <_old_AluOP_13_0> 
+INFO:Xst:2261 - The FF/Latch <_old_RegDst_6> in Unit <controlunit> is equivalent to the following FF/Latch, which will be removed : <_old_AluOP_13_1> 
+
+Optimizing unit <cpu> ...
+
+Optimizing unit <IDEX> ...
+
+Optimizing unit <EXMEM> ...
+
+Optimizing unit <MEMWB> ...
+
+Optimizing unit <PC> ...
+
+Optimizing unit <Regfile> ...
+
+Optimizing unit <Data_Mem> ...
+
+Optimizing unit <alucontrol> ...
+
+Optimizing unit <controlunit> ...
+
+Optimizing unit <Forward_unit> ...
+
+
+Mapping all equations...
+Building and optimizing final netlist ...
+Found area constraint ratio of 100 (+ 5) on block cpu, actual ratio is 0.
+
+Final Macro Processing ...
+
+=========================================================================
+Final Register Report
+
+Macro Statistics
+# Registers                                            : 60
+ Flip-Flops                                            : 60
+
+=========================================================================
+
+=========================================================================
+*                           Partition Report                            *
+=========================================================================
+
+Partition Implementation Status
+-------------------------------
+
+  No Partitions were found in this design.
+
+-------------------------------
+
+=========================================================================
+*                            Final Report                               *
+=========================================================================
+Final Results
+RTL Top Level Output File Name     : cpu.ngr
+Top Level Output File Name         : cpu
+Output Format                      : NGC
+Optimization Goal                  : Speed
+Keep Hierarchy                     : No
+
+Design Statistics
+# IOs                              : 262
+
+Cell Usage :
+# BELS                             : 90
+#      GND                         : 1
+#      INV                         : 1
+#      LUT1                        : 28
+#      MUXCY                       : 29
+#      VCC                         : 1
+#      XORCY                       : 30
+# FlipFlops/Latches                : 60
+#      FD                          : 30
+#      FDC                         : 30
+# Clock Buffers                    : 1
+#      BUFGP                       : 1
+# IO Buffers                       : 261
+#      OBUF                        : 261
+=========================================================================
+
+Device utilization summary:
+---------------------------
+
+Selected Device : xa3s1500fgg456-4 
+
+ Number of Slices:                       33  out of  13312     0%  
+ Number of Slice Flip Flops:             60  out of  26624     0%  
+ Number of 4 input LUTs:                 29  out of  26624     0%  
+ Number of IOs:                         262
+ Number of bonded IOBs:                 262  out of    333    78%  
+ Number of GCLKs:                         1  out of      8    12%  
+
+---------------------------
+Partition Resource Summary:
+---------------------------
+
+  No Partitions were found in this design.
+
+---------------------------
+
+
+=========================================================================
+TIMING REPORT
+
+NOTE: THESE TIMING NUMBERS ARE ONLY A SYNTHESIS ESTIMATE.
+      FOR ACCURATE TIMING INFORMATION PLEASE REFER TO THE TRACE REPORT
+      GENERATED AFTER PLACE-and-ROUTE.
+
+Clock Information:
+------------------
+-----------------------------------+------------------------+-------+
+Clock Signal                       | Clock buffer(FF name)  | Load  |
+-----------------------------------+------------------------+-------+
+clk                                | BUFGP                  | 60    |
+-----------------------------------+------------------------+-------+
+
+Asynchronous Control Signals Information:
+----------------------------------------
+-----------------------------------+------------------------+-------+
+Control Signal                     | Buffer(FF name)        | Load  |
+-----------------------------------+------------------------+-------+
+result_0_OBUF(XST_GND:G)           | NONE(pc/out_10)        | 30    |
+-----------------------------------+------------------------+-------+
+
+Timing Summary:
+---------------
+Speed Grade: -4
+
+   Minimum period: 5.746ns (Maximum Frequency: 174.034MHz)
+   Minimum input arrival time before clock: No path found
+   Maximum output required time after clock: 7.165ns
+   Maximum combinational path delay: No path found
+
+Timing Detail:
+--------------
+All values displayed in nanoseconds (ns)
+
+=========================================================================
+Timing constraint: Default period analysis for Clock 'clk'
+  Clock period: 5.746ns (frequency: 174.034MHz)
+  Total number of paths / destination ports: 930 / 60
+-------------------------------------------------------------------------
+Delay:               5.746ns (Levels of Logic = 30)
+  Source:            pc/out_3 (FF)
+  Destination:       R1/PC_31 (FF)
+  Source Clock:      clk rising
+  Destination Clock: clk rising
+
+  Data Path: pc/out_3 to R1/PC_31
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FDC:C->Q              1   0.720   1.140  pc/out_3 (pc/out_3)
+     LUT1:I0->O            1   0.551   0.000  alup1/Madd_out_cy<3>_rt (alup1/Madd_out_cy<3>_rt)
+     MUXCY:S->O            1   0.500   0.000  alup1/Madd_out_cy<3> (alup1/Madd_out_cy<3>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<4> (alup1/Madd_out_cy<4>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<5> (alup1/Madd_out_cy<5>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<6> (alup1/Madd_out_cy<6>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<7> (alup1/Madd_out_cy<7>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<8> (alup1/Madd_out_cy<8>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<9> (alup1/Madd_out_cy<9>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<10> (alup1/Madd_out_cy<10>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<11> (alup1/Madd_out_cy<11>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<12> (alup1/Madd_out_cy<12>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<13> (alup1/Madd_out_cy<13>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<14> (alup1/Madd_out_cy<14>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<15> (alup1/Madd_out_cy<15>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<16> (alup1/Madd_out_cy<16>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<17> (alup1/Madd_out_cy<17>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<18> (alup1/Madd_out_cy<18>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<19> (alup1/Madd_out_cy<19>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<20> (alup1/Madd_out_cy<20>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<21> (alup1/Madd_out_cy<21>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<22> (alup1/Madd_out_cy<22>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<23> (alup1/Madd_out_cy<23>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<24> (alup1/Madd_out_cy<24>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<25> (alup1/Madd_out_cy<25>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<26> (alup1/Madd_out_cy<26>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<27> (alup1/Madd_out_cy<27>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<28> (alup1/Madd_out_cy<28>)
+     MUXCY:CI->O           1   0.064   0.000  alup1/Madd_out_cy<29> (alup1/Madd_out_cy<29>)
+     MUXCY:CI->O           0   0.064   0.000  alup1/Madd_out_cy<30> (alup1/Madd_out_cy<30>)
+     XORCY:CI->O           2   0.904   0.000  alup1/Madd_out_xor<31> (in_pc<31>)
+     FDC:D                     0.203          pc/out_31
+    ----------------------------------------
+    Total                      5.746ns (4.606ns logic, 1.140ns route)
+                                       (80.2% logic, 19.8% route)
+
+=========================================================================
+Timing constraint: Default OFFSET OUT AFTER for Clock 'clk'
+  Total number of paths / destination ports: 30 / 30
+-------------------------------------------------------------------------
+Offset:              7.165ns (Levels of Logic = 1)
+  Source:            R1/PC_31 (FF)
+  Destination:       IFIDPC<31> (PAD)
+  Source Clock:      clk rising
+
+  Data Path: R1/PC_31 to IFIDPC<31>
+                                Gate     Net
+    Cell:in->out      fanout   Delay   Delay  Logical Name (Net Name)
+    ----------------------------------------  ------------
+     FD:C->Q               1   0.720   0.801  R1/PC_31 (R1/PC_31)
+     OBUF:I->O                 5.644          IFIDPC_31_OBUF (IFIDPC<31>)
+    ----------------------------------------
+    Total                      7.165ns (6.364ns logic, 0.801ns route)
+                                       (88.8% logic, 11.2% route)
+
+=========================================================================
+
+
+Total REAL time to Xst completion: 59.00 secs
+Total CPU time to Xst completion: 59.91 secs
+ 
+--> 
+
+Total memory usage is 357332 kilobytes
+
+Number of errors   :    0 (   0 filtered)
+Number of warnings : 4665 (   0 filtered)
+Number of infos    :   39 (   0 filtered)
+

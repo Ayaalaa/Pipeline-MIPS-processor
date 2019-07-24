@@ -1,0 +1,768 @@
+///////////////////////////////* pc */////////////////////////////////
+module PC(in,out,clk,reset);
+input [31:0] in;
+output reg [31:0] out;
+input clk,reset;
+
+initial
+begin
+out=0;
+end 
+
+always @(posedge clk or posedge reset)
+begin
+      if(reset == 1'b1) 
+         out <= 32'd0;
+      else 
+out[31:0] <= in[31:0];
+end
+endmodule
+
+///////////////////////////////* instruction memory */////////////////////////////////
+module inst_memory(address,instruction);
+
+input[31:0]address;
+output reg[31:0]instruction;
+reg[31:0] memory [0:1023];
+reg [4:0]rs ,rt,rd,immed;
+
+always @(address)
+begin
+instruction <= memory[address>>2];
+end
+initial
+begin
+$readmemb("D:\\sw.txt",memory);
+ end
+endmodule
+
+//////////////////* adder *///////////////////
+
+module aluplus (in1,in2,out);
+input wire signed [31:0] in1,in2;
+output wire signed [31:0] out;
+
+assign out=in1+in2;
+
+endmodule
+
+
+///////////////////////////////* register file */////////////////////////////////
+module Regfile (R1,R2,Rw,Rd,Rd1,Rd2,Wr,clk);
+input clk;
+input[4:0] R1,R2,Rw;
+ input [31:0]Rd;
+ input Wr;
+output  [31:0]Rd1,Rd2;
+reg signed[31:0]Rdata[0:31];
+
+initial
+begin
+      Rdata[32'd0] <= 0;
+
+      Rdata[32'd1] <= 1;
+     
+      Rdata[32'd2] <= 2;
+
+      Rdata[32'd3] <= 1;
+
+      Rdata[32'd4] <= 1;
+
+      Rdata[32'd5] <= 1;
+
+      Rdata[32'd6] <= 80;
+
+      Rdata[32'd7] <= 11;
+
+      Rdata[32'd8] <= 15;
+      Rdata[32'd9] <= 14;
+      Rdata[32'd10] <= 9;
+      Rdata[32'd11] <= 5;
+      Rdata[32'd12] <= 55;
+      Rdata[32'd13] <= 35;
+      Rdata[32'd14] <= 6;
+
+end
+
+ 
+ assign Rd1 =Rdata[R1];
+ assign Rd2=Rdata[R2];
+ 
+
+always @(negedge clk)
+  begin
+   if(Wr==1)
+    begin
+     Rdata[Rw]<=Rd;
+    end
+  end
+
+endmodule
+
+
+///////////////////////////////* sign extend */////////////////////////////////
+module signextend (in,out);
+input signed [15:0]in;
+output reg [31:0]out;
+always @(in)
+begin
+out [15:0] <= in[15:0];
+out[31:16] <= {16 {in[15]}} ;
+end 
+endmodule
+
+
+///////////////////////////////* shift left 2*/////////////////////////////////
+
+module shift (in,out);
+input [31:0]in;
+output reg [31:0]out;
+always @(in)
+begin 
+out = in<<2;
+end
+endmodule
+
+
+///////////////////////////////* alu */////////////////////////////////////////////////
+module Alu (result,func,shamount,a,b,zeroflag);
+input wire signed [31:0] a,b;
+input wire [3:0] func;
+output wire signed[31:0] result ;
+input[4:0]shamount;
+output zeroflag;
+
+
+ assign result = (func==4'b0000)?(a+b):(func==4'b0001)?(a-b):(func==4'b0010)?(a&&b):(func==4'b0011)?(a||b):(func==4'b0100)?(b<<shamount):(func==4'b0101)?
+(a>>0):32'bz;//func of shift ??
+assign zeroflag=((a-b)==0)?1'b1:1'b0;
+endmodule
+
+
+///////////////////////////////* alu control *//////////////////////////////////////////
+module alucontrol (aluop,fun,cout);
+input [1:0]aluop;
+input [5:0]fun;
+output [3:0]cout;
+assign cout=(aluop==2'b00)?4'b0000:(aluop==2'b01)?4'b0001:(aluop==2'b10)?((fun==6'd32)?4'b0000:(fun==6'd36)?4'd2:(fun==6'd37)?
+ //32=>add , 36=>and , 37=>or , 34=>sub , 0=>shift left , 2=>shift right
+4'd3:(fun==6'd34)?4'd1:(fun==6'd0)?4'd4:(fun==6'd2)?4'd5:4'bzzzz):4'bzzzz;
+endmodule 
+
+
+///////////////////////////////* data memory *//////////////////////////////////////////
+/*data memory module for reading or writing data in the memory*/
+
+module Data_Mem(Rdata,addr,Wdata,memR,memW,clk);
+
+output reg[31:0]Rdata;             // read data the only output of data memory used in lw instruction
+input wire [31:0]Wdata;             // write data came from register file used in sw instruction
+input wire [31:0]addr;              // address of read or write data came from alu 
+input wire memR,memW,clk;           // memory read and memory write signals came from control unit
+reg [31:0]Data_arr[0:1023];           // the actual memory where data saved
+
+initial
+begin
+Data_arr[32'd0]<=5;
+Data_arr[32'd1]<=10;
+Data_arr[32'd2]<=8;
+Data_arr[32'd3]<=15;
+Data_arr[32'd4]<=12;
+Data_arr[32'd5]<=11;
+Data_arr[32'd6]<=9;
+Data_arr[32'd7]<=8;
+Data_arr[32'd8]<=6;
+Data_arr[32'd9]<=13;
+Data_arr[32'd10]<=5;
+Data_arr[32'd11]<=11;
+Data_arr[32'd12]<=16;
+Data_arr[32'd13]<=5;
+Data_arr[32'd14]<=14;
+Data_arr[32'd15]<=15;
+end
+
+always @(memW)
+begin
+  if (memW==1)
+    begin 
+      Data_arr[addr] <= Wdata;
+    end
+end
+
+always @(negedge clk)
+begin
+   if (memR==1)
+   begin 
+      Rdata<= Data_arr[addr];
+   end
+end
+
+endmodule 
+
+///////////////////////////////* control unit */////////////////////////////////
+module controlunit (Opcode , signals);
+  input [5:0] Opcode ;
+  output reg [9:0] signals;
+   reg RegDst,AluSrc,Branch,MemtoReg,MemRead,MEmwrite,RegWrite,flush ;
+   reg [1:0] AluOP ;
+  
+  
+ 
+
+  always @ (Opcode )
+    begin
+      if (Opcode == 6'd35) //lw
+        begin
+          RegDst=0;
+          AluSrc=1;
+          Branch=0;
+          MemtoReg=1;
+          MemRead=1;
+          MEmwrite=0;
+          RegWrite=1;
+          AluOP=2'b00; //add
+          flush=0; 
+        end      
+      else if (Opcode == 6'd43) //sw
+        begin
+          RegDst=1'bx;
+          AluSrc=1;
+          Branch=0;
+          MemtoReg=1'bx;
+          MemRead=0;
+          MEmwrite=1;
+          RegWrite=0;
+          AluOP=2'b00; //add 
+	  flush=0;
+        end
+      else if (Opcode == 6'd4) //beq
+        begin
+          #300
+          RegDst=1'bx;
+          AluSrc=0;
+          Branch=1;
+          MemtoReg=1'bx;
+          MemRead=0;
+          MEmwrite=0;
+          RegWrite=0;
+          AluOP=2'b01; //sub 
+	  flush=1;
+
+        end      
+      else if(Opcode == 6'd0) //R-format
+        begin
+          RegDst=1;
+          AluSrc=0;
+          Branch=0;
+          MemtoReg=0;
+          MemRead=0;
+          MEmwrite=0;
+          RegWrite=1;
+          AluOP=2'b10; //depends on the function 
+	  flush=0;
+        end  
+     signals[0]<=RegDst;
+     signals[1]<=AluSrc;
+     signals[2]<=Branch;
+     signals[3]<=MemtoReg;
+     signals[4]<=MemRead;
+     signals[5]<=MEmwrite;
+     signals[6]<=RegWrite;
+     signals[7]<=AluOP[0];
+     signals[8]<=AluOP[1];
+     signals[9]<=flush;
+   
+   
+    end
+endmodule
+
+
+///////////////////////////////* andd */////////////////////////////////
+module andd(ina,inb,outa);
+input  ina,inb;
+output reg outa;
+always @(ina or inb)
+begin
+outa<=ina&inb;
+end
+
+initial
+begin
+outa=0;
+end 
+endmodule
+
+//////////////////////////// mux 2*1///////////////////////////////////
+
+module muxx (in1,in2,out,sel);
+input signed [4:0]in1,in2 ;
+input sel ;
+output reg signed [4:0]out ;
+ 
+always @(in1 or in2 or sel)
+begin 
+if(sel==0)
+ begin
+ out=in1;
+ end
+else if(sel==1)
+ begin
+ out= in2; 
+ end
+else 
+ begin
+ out=1'bx; 
+ end
+end
+endmodule
+
+
+///////////////////////////////* multiplexer  3*1 sel 2bits */////////////////////////////////
+module mux3_1_2 (in1,in2,in3,out,sel1,sel2);
+input signed [31:0]in1,in2,in3 ;
+input sel1,sel2;
+output reg signed [31:0]out ;
+ 
+always @(in1 or in2 or in3 or sel1 or sel2)
+begin 
+if(sel1==0&&sel2==0)
+ begin
+ out=in1;
+ end
+else if(sel1==0&&sel2==1)
+ begin
+ out= in2; 
+ end
+else if(sel1==1&&sel2==0)
+ begin
+ out= in3; 
+ end
+else 
+ begin
+ out=1'bx; 
+ end
+end
+endmodule
+
+
+
+
+///////////////////////////////* multiplexer  3*1 */////////////////////////////////
+module mux3_1 (in1,in2,in3,out,sel);
+input signed [31:0]in1,in2,in3 ;
+input [1:0]sel ;
+output reg signed [31:0]out ;
+ 
+always @(in1 or in2 or in3 or sel)
+begin 
+if(sel==0)
+ begin
+ out=in1;
+ end
+else if(sel==1)
+ begin
+ out= in2; 
+ end
+else if(sel==2)
+ begin
+ out= in3; 
+ end
+else 
+ begin
+ out=1'bx; 
+ end
+end
+endmodule
+
+
+//////////////////////////// mux 2*1///////////////////////////////////
+
+module mux (in1,in2,out,sel);
+input signed [31:0]in1,in2 ;
+input sel ;
+output reg signed [31:0]out ;
+ 
+always @(in1 or in2 or sel)
+begin 
+if(sel==0)
+ begin
+ out=in1;
+ end
+else if(sel==1)
+ begin
+ out= in2; 
+ end
+else 
+ begin
+ out=1'bx; 
+ end
+end
+endmodule
+
+
+////////////////////////mux_for_control unit_hazard/////////////////////
+module mux_hazard(in1,out,sel);
+input  [8:0]in1 ;
+//assign in2=9'd0;
+input sel ;
+reg [8:0]zero;
+initial 
+begin
+zero=9'd0;
+end 
+output reg  [8:0]out ;
+ 
+always @(in1 or sel)
+begin 
+if(sel==0)
+ begin
+ out=in1;
+ end
+else if(sel==1)
+ begin
+ out= 9'd0; 
+ end
+else 
+ begin
+ out=1'bx; 
+ end
+end
+endmodule
+
+
+
+///////////////////////////////* forward unit *//////////////////////////////////
+
+module Forward_unit (forwardA,forwardB,IDEX_RT,IDEX_RS,EXMEM_REGWRITE,MEMWB_REGWRITE,EXMEM_RD,MEMWB_RD,stall);
+output reg[1:0]forwardA,forwardB;
+input [4:0]IDEX_RT,IDEX_RS,EXMEM_RD,MEMWB_RD;
+input EXMEM_REGWRITE,MEMWB_REGWRITE,stall;
+reg flagA,flagB;
+
+initial
+begin
+forwardA=0;
+forwardB=0;
+flagA=0;
+flagB=0;
+end
+//////////////////* EXMEM_FORWARD RS *//////////////////
+always @ (IDEX_RT or IDEX_RS or EXMEM_REGWRITE or MEMWB_REGWRITE  ) 
+begin
+if ((EXMEM_REGWRITE) && (EXMEM_RD != 0) && (EXMEM_RD == IDEX_RS)  && (EXMEM_RD!=IDEX_RT)) 
+begin
+  forwardA = 2'b10 ;
+  flagA=1;
+  
+
+end
+//////////////////* MEMWB_FORWARD RT *//////////////////
+if (EXMEM_REGWRITE  && (EXMEM_RD!= 0) && (EXMEM_RD==IDEX_RT) && (EXMEM_RD != IDEX_RS)) 
+begin
+  forwardB = 2'b10 ; 
+  flagB=1;
+  /*#450
+  forwardA = 2'b00 ;*/
+end
+if (EXMEM_REGWRITE  && (EXMEM_RD!= 0) && (EXMEM_RD==IDEX_RT) && (EXMEM_RD == IDEX_RS)) 
+begin
+  forwardA = 2'b10 ;
+  forwardB = 2'b10 ;
+  flagA=1;
+  flagB=1;
+
+ 
+end
+//////////////////* MEMWB_FORWARD RS *//////////////////
+if ((MEMWB_REGWRITE && (MEMWB_RD != 0) && (EXMEM_RD != IDEX_RS) && (MEMWB_RD == IDEX_RS)  && (MEMWB_RD != IDEX_RT)) || (stall)) 
+begin
+  forwardA = 2'b01;
+  flagA=1;
+end
+//////////////////* MEMWB_FORWARD RT *//////////////////
+if ((MEMWB_REGWRITE && (MEMWB_RD != 0) && (EXMEM_RD != IDEX_RT) && (MEMWB_RD == IDEX_RT) && (MEMWB_RD != IDEX_RS))||(stall)) 
+begin
+  forwardB = 2'b01 ;
+  flagB=1;
+  
+end
+if ((MEMWB_REGWRITE && (MEMWB_RD != 0) && (EXMEM_RD != IDEX_RS) && (EXMEM_RD != IDEX_RT) && (MEMWB_RD == IDEX_RS)  && (MEMWB_RD == IDEX_RT))||(stall)) 
+begin
+  forwardA = 2'b01 ;
+  forwardB = 2'b01 ;
+  flagA=1;
+  flagB=1;
+  
+end
+if(!flagA)
+begin
+ forwardA = 2'b00 ;
+ 
+end
+if(!flagB)
+begin
+ forwardB = 2'b00 ;
+end
+if(!flagB && !flagA)
+begin
+ forwardB = 2'b00 ;
+ forwardA = 2'b00 ;
+end
+flagA=0;
+flagB=0;
+end
+
+endmodule 
+////////////////*HAZARD_DETECTION_UNIT* ////////////////////////
+module HAzard_Detection(IDEX_MEMREAD,IFIDIRS,IFIDIRT, IDEXRT ,stall,hold_pc,hold_reg);
+input [4:0] IFIDIRS,IFIDIRT;
+input [4:0] IDEXRT;
+input  IDEX_MEMREAD;
+output reg stall,hold_pc,hold_reg;
+
+initial 
+begin
+stall=1'b0;
+hold_pc=1'b0;
+hold_reg=1'b0;
+end
+
+always @(IDEX_MEMREAD or IFIDIRS or IFIDIRT )
+begin
+if( (IDEX_MEMREAD==1 )&&( (IFIDIRS==IDEXRT) || (IFIDIRT==IDEXRT)) )
+begin
+ stall=1;
+ hold_pc=1;
+ hold_reg=1;
+end
+
+else
+begin
+//delay#450
+ stall=1'b0;
+ hold_pc=1'b0;
+ hold_reg=1'b0;
+ end
+end
+
+
+endmodule
+
+//////////////////////////////* single cycle processor *//////////////////////////////////////////
+
+module cpu();
+reg clk,reset;
+wire [31:0]result;
+wire [31:0]instruction;
+wire [31:0]address;
+wire [31:0]in_pc;
+wire [31:0]inp2;
+wire [31:0]Rd1,Rd2,writeback,Rdata,Wdata,out_sign,shift_res,pc_4,inp_mux_pcsrc;
+wire [4:0]Rw;
+wire [3:0]alu_con_out;
+wire[1:0]AluOP;
+wire pcsrc;
+wire [1:0]forwardA,forwardB;
+wire [31:0] alu_in1,alu_in2_withforward;
+reg [8:0] in2;
+wire hold_pc , hold_reg , stall;
+wire [9:0] control_mux , out_signals;
+reg currentpc;
+wire zeroflag;
+
+
+/////////////////* pipeline registers *//////////////////
+
+reg[31:0] IFIDPC;
+reg[31:0] IDEXPC;
+reg[31:0] IFIDIR;
+reg[31:0] IDEXIR;
+reg[31:0] EXMEMIR;
+reg[31:0] MEMWBIR;
+
+reg[1:0] IDEX_ALUOP;
+reg IDEX_REGDST,IDEX_ALUSRC, IDEX_MEMTOREG,IDEX_MEMREAD,IDEX_MEMWRITE,IDEX_REGWRITE,
+ EXMEM_MEMTOREG,EXMEM_MEMREAD,EXMEM_MEMWRITE,EXMEM_REGWRITE,MEMWB_MEMTOREG,MEMWB_REGWRITE,IDEX_BRANCH ;
+reg STALL;
+reg[31:0] IDEXA;
+reg[31:0] IDEXB;
+
+reg[31:0] OUT_SIGN,OUT_SHIFT;
+reg[4:0] DECRT;
+reg [4:0] DECRD;
+
+
+reg[31:0] EXMEM_ALURESULT;
+reg[31:0] EXMEMB;
+reg[4:0] EXMEMWR;
+
+reg[4:0] MEMWBWR;
+reg[31:0] MEMWB_ALURESULT;
+reg[31:0] READDATA;
+
+reg FLUSH;
+
+
+always @(posedge clk)
+begin
+
+////////**PC**//////
+if(hold_pc==1)
+begin
+IFIDPC<=pc_4-4;
+end
+
+else
+begin
+IFIDPC <= pc_4;
+end  
+
+IDEXPC <= IFIDPC;
+
+////////**Reg**//////
+if(hold_reg==1)
+begin 
+IFIDIR  = IFIDIR;
+IDEXIR  <= IFIDIR;
+EXMEMIR <= IDEXIR;
+ end
+else if(hold_reg==0)
+begin 
+IFIDIR <= instruction;
+IDEXIR <= IFIDIR;
+EXMEMIR <= IDEXIR;
+end
+
+/////**flush**///
+if(pcsrc==1)
+begin 
+
+IDEX_ALUOP <= 0; /*signals[7]=AluOP[0];   signals[8]=AluOP[1];*/
+IDEX_REGDST <= 0;//signals[0]=RegDst;
+IDEX_ALUSRC <= 0;//signals[1]=AluSrc;
+IDEX_BRANCH <= 0;//signals[2]=Branch;
+IDEX_MEMTOREG <= 0;//signals[3]=MemtoReg;
+IDEX_MEMREAD<=0;
+IDEX_MEMWRITE <= 0;
+IDEX_REGWRITE<=0;
+
+IFIDIR <= 32'd0;
+IDEXIR  <= 32'd0;
+ end
+
+
+
+
+FLUSH <= out_signals[9];
+IDEX_ALUOP <= out_signals[8:7]; /*signals[7]=AluOP[0];   signals[8]=AluOP[1];*/
+IDEX_REGDST <= out_signals[0];//signals[0]=RegDst;
+IDEX_ALUSRC <= out_signals[1];//signals[1]=AluSrc;
+IDEX_BRANCH <= out_signals[2];//signals[2]=Branch;
+IDEX_MEMTOREG <= out_signals[3];//signals[3]=MemtoReg;
+IDEX_MEMREAD <=out_signals[4];//signals[4]=MemRead;
+IDEX_MEMWRITE <= out_signals[5];//signals[5]=Memwrite;
+IDEX_REGWRITE <= out_signals[6];//signals[6]=RegWrite;
+
+EXMEM_MEMTOREG <=IDEX_MEMTOREG;
+EXMEM_REGWRITE <=IDEX_REGWRITE;
+IDEXA <= Rd1;
+IDEXB <= Rd2;
+STALL<=stall;
+
+DECRT <= IFIDIR[20:16]; //hed5lo 3la regdst mux
+DECRD <= IFIDIR[15:11]; //hed5lo 3la regdst mux
+
+
+EXMEMB <= IDEXB;
+MEMWBIR <= EXMEMIR;
+
+IDEX_MEMREAD<=out_signals[4];//signals[4]=MemRead;
+MEMWBWR <= EXMEMWR;
+MEMWB_MEMTOREG <= EXMEM_MEMTOREG;
+EXMEM_ALURESULT <= result;
+MEMWB_ALURESULT <= EXMEM_ALURESULT;
+EXMEMWR <= Rw;
+EXMEM_MEMREAD <=IDEX_MEMREAD;
+EXMEM_MEMWRITE <=IDEX_MEMWRITE;
+MEMWB_REGWRITE <= EXMEM_REGWRITE;
+READDATA <= Rdata;
+
+OUT_SIGN <= out_sign;
+OUT_SHIFT <= shift_res;
+
+end
+
+
+mux3_1_2 inpc (pc_4,IFIDPC,inp_mux_pcsrc,in_pc,pcsrc,hold_pc);
+
+PC pc(in_pc,address,clk,reset);
+
+inst_memory inmem(address,instruction);
+
+Regfile regfile(IFIDIR[25:21],IFIDIR[20:16],MEMWBWR ,writeback,Rd1,Rd2,MEMWB_REGWRITE ,clk);
+
+Alu alu(result,alu_con_out,IDEXIR[10:6],alu_in1 ,inp2,zeroflag );
+
+Data_Mem damem(Rdata,EXMEM_ALURESULT,EXMEMB,EXMEM_MEMREAD,EXMEM_MEMWRITE ,clk);
+
+controlunit con(IFIDIR[31:26],control_mux);
+
+alucontrol alucon(IDEX_ALUOP,IDEXIR[5:0],alu_con_out);
+
+signextend sign(IFIDIR[15:0],out_sign);
+
+shift sh(OUT_SIGN,shift_res);
+
+aluplus alup1(address,4,pc_4);
+
+aluplus alup2(IDEXPC,OUT_SHIFT,inp_mux_pcsrc);
+
+mux_hazard MUX_DETECTION(control_mux,out_signals,stall);
+
+//mux pcsrc_mux(pc_4,inp_mux_pcsrc,in_pc,pcsrc);
+
+muxx reg_des(DECRT,DECRD,Rw,IDEX_REGDST);
+
+mux Alusrc(alu_in2_withforward,OUT_SIGN,inp2,IDEX_ALUSRC);
+
+mux memtoreg(MEMWB_ALURESULT,READDATA,writeback,MEMWB_MEMTOREG);
+
+Forward_unit forwardunit(forwardA,forwardB,IDEXIR[20:16],IDEXIR[25:21],EXMEM_REGWRITE,MEMWB_REGWRITE,EXMEMWR,MEMWBWR,STALL);
+
+HAzard_Detection  d(IDEX_MEMREAD, IFIDIR[25:21],IFIDIR[20:16], IDEXIR[20:16] ,stall,hold_pc,hold_reg);
+
+
+mux3_1 FORWARDA(IDEXA ,writeback,EXMEM_ALURESULT ,alu_in1,forwardA);
+
+mux3_1 FORWARDB(IDEXB,writeback,EXMEM_ALURESULT,alu_in2_withforward,forwardB);
+
+andd branch( IDEX_BRANCH,zeroflag,pcsrc);
+
+
+
+
+initial
+begin
+reset=1;
+#6
+reset=0;
+end
+
+
+initial
+begin
+clk=1;
+end
+
+always 
+begin
+#400
+clk=0;
+#400
+clk=1;
+end
+
+
+endmodule
+
+
